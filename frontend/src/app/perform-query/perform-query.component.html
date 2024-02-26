@@ -1,0 +1,45 @@
+<h2>Perform Query</h2>
+
+<!-- Form for performing query -->
+<form (ngSubmit)="performQuery()">
+  <div>
+    <label for="queryType">Query Type:</label>
+    <select id="queryType" name="queryType" [(ngModel)]="queryType" required>
+      <option value="nationality">By Nationality</option>
+      <option value="age">By Age Range</option>
+      <option value="totalStats">By Total Stats Range</option>
+      <!-- Add other query types as needed -->
+    </select>
+  </div>
+  
+  <!-- Query input fields based on selected query type -->
+  <div *ngIf="queryType === 'nationality'">
+    <label for="nationality">Nationality:</label>
+    <input type="text" id="nationality" name="nationality" [(ngModel)]="queryData.nationality" required>
+  </div>
+  
+  <div *ngIf="queryType === 'age'">
+    <label for="minAge">Minimum Age:</label>
+    <input type="number" id="minAge" name="minAge" [(ngModel)]="queryData.minAge" required>
+    <label for="maxAge">Maximum Age:</label>
+    <input type="number" id="maxAge" name="maxAge" [(ngModel)]="queryData.maxAge" required>
+  </div>
+  
+  <div *ngIf="queryType === 'totalStats'">
+    <label for="minTotalStats">Minimum Total Stats:</label>
+    <input type="number" id="minTotalStats" name="minTotalStats" [(ngModel)]="queryData.minTotalStats" required>
+    <label for="maxTotalStats">Maximum Total Stats:</label>
+    <input type="number" id="maxTotalStats" name="maxTotalStats" [(ngModel)]="queryData.maxTotalStats" required>
+  </div>
+  
+  <!-- Submit button -->
+  <button type="submit">Perform Query</button>
+</form>
+
+<!-- Display query results -->
+<div *ngIf="queryResults">
+  <h3>Query Results:</h3>
+  <ul>
+    <li *ngFor="let player of queryResults">{{ player.fullName }} - {{ player.nationality }} - {{ player.age }}</li>
+  </ul>
+</div>
